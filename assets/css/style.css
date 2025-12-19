@@ -1,0 +1,164 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+}
+
+/* NAVBAR */
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 40px;
+    background: #fff;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+.navbar .logo {
+    font-size: 22px;
+    font-weight: bold;
+    color: #2da9ef;
+}
+
+.navbar nav a {
+    margin-left: 20px;
+    text-decoration: none;
+    color: #333;
+}
+
+.navbar .btn {
+    background: #2da9ef;
+    color: #fff;
+    padding: 8px 15px;
+    border-radius: 6px;
+}
+
+/* HERO */
+.hero {
+    background: #2da9ef;
+    color: white;
+    text-align: center;
+    padding: 80px 20px;
+}
+
+.hero h1 {
+    font-size: 36px;
+    margin-bottom: 30px;
+}
+
+.search-box input {
+    width: 80%;
+    max-width: 500px;
+    padding: 12px;
+    border-radius: 25px;
+    border: none;
+    outline: none;
+}
+
+.hero-buttons {
+    margin-top: 25px;
+}
+
+.primary-btn,
+.secondary-btn {
+    padding: 12px 20px;
+    border: none;
+    border-radius: 8px;
+    margin: 5px;
+    cursor: pointer;
+}
+
+.primary-btn {
+    background: #fff;
+    color: #2da9ef;
+}
+.primary-btn:hover {
+    background: #e6f2fb;
+    cursor: pointer;
+    
+}
+
+.secondary-btn {
+    background: #1b87c9;
+    color: white;
+}
+.secondary-btn:hover {
+    background: #166fae;
+    cursor: pointer;
+}
+
+/* ITEMS */
+.items {
+    padding: 50px 40px;
+}
+
+.items h2 {
+    margin-bottom: 30px;
+}
+
+.item-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 20px;
+}
+
+.card {
+    background: #fff;
+    border-radius: 10px;
+    padding: 15px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+}
+
+.card img {
+    width: 100%;
+    border-radius: 8px;
+}
+
+.card h3 {
+    margin: 10px 0;
+}
+
+.card p {
+    font-size: 14px;
+    color: #555;
+}
+
+.location {
+    font-size: 13px;
+    color: #777;
+}
+
+.card-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 10px;
+}
+
+.badge {
+    padding: 5px 10px;
+    border-radius: 12px;
+    font-size: 12px;
+}
+
+.badge.found {
+    background: #d4f6e1;
+    color: #0b8457;
+}
+
+.badge.lost {
+    background: #ffd6d6;
+    color: #c0392b;
+}
+
+/* RESPONSIVE */
+@media (max-width: 768px) {
+    .navbar {
+        flex-direction: column;
+    }
+
+    .hero h1 {
+        font-size: 26px;
+    }
+}
