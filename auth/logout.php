@@ -1,6 +1,7 @@
 <?php
 session_start();
 session_destroy();
-header("Location: login.php");
-exit;
-?>
+
+// redirect to dashboard/home page
+header("Location: ../dashboard/index.php");
+exit();

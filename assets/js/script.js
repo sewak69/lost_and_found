@@ -6,3 +6,5 @@ document.querySelector('.primary-btn').addEventListener('click', () => {
 document.querySelector('.secondary-btn').addEventListener('click', () => {
     alert("Redirect to Report Found Item page");
 });
+
+
