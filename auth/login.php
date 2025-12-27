@@ -1,25 +1,68 @@
-<?php   
+<?php
+error_reporting(E_ALL);
+ini_set('display_errors', 1);
+
+session_start();
 include("../config/db.php");
-if (session_status() == PHP_SESSION_NONE) {
-    session_start();
-}
-if (isset($_POST['login'])) {
-    $email = $_POST['email'];
-    $password = $_POST['password'];
 
-    $result = mysqli_query($conn, "SELECT * FROM users WHERE email='$email'");
-    $user = mysqli_fetch_assoc($result);
+/*
+|--------------------------------------------------------------------------
+| 1. If already logged in → redirect by role
+|--------------------------------------------------------------------------
+*/
+if (isset($_SESSION['user_id']) && isset($_SESSION['role'])) {
 
-    if ($user && password_verify($password, $user['password'])) {
-        $_SESSION['user_id'] = $user['id'];
-        $_SESSION['role'] = $user['role'];
-        header("Location: ../dashboard/index.php");
-        exit();
+    if ($_SESSION['role'] === 'admin') {
+        header("Location: ../admin/admin-dashboard.php");
     } else {
-        echo "<script>alert('Invalid email or password');</script>";
+        header("Location: ../dashboard/index.php");
     }
+    exit();
+}
+
+/*
+|--------------------------------------------------------------------------
+| 2. Handle login form submission
+|--------------------------------------------------------------------------
+*/
+if (isset($_POST['login'])) {
+
+    $email = trim($_POST['email']);
+    $password = trim($_POST['password']);
+
+    $stmt = $conn->prepare(
+        "SELECT id, password, role FROM users WHERE email = ? LIMIT 1"
+    );
+    $stmt->bind_param("s", $email);
+    $stmt->execute();
+    $result = $stmt->get_result();
+
+    if ($result && $result->num_rows === 1) {
+
+        $user = $result->fetch_assoc();
+
+        // Verify password
+        if (password_verify($password, $user['password'])) {
+
+            // Set session
+            $_SESSION['user_id'] = $user['id'];
+            $_SESSION['role']    = strtolower(trim($user['role']));
+
+            // Redirect based on role
+            if ($_SESSION['role'] === 'admin') {
+                header("Location: ../admin/admin-dashboard.php");
+            } else {
+                header("Location: ../dashboard/index.php");
+            }
+            exit();
+        }
+    }
+
+    // If login fails
+    $error = "Invalid email or password";
 }
 ?>
+    
 
     
 

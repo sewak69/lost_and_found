@@ -1,5 +1,5 @@
 <?php
-include("../config/db.php"); // Make sure db.php connects to your database
+include("../config/db.php"); //
 
 if(isset($_POST['register'])) {
     // Get POST data and escape to prevent SQL injection

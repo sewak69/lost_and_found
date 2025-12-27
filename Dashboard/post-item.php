@@ -9,14 +9,28 @@ if(!isset($_SESSION['user_id'])) {
 if(isset($_POST['submit'])) {
     $title = $_POST['title'];
     $desc = $_POST['description'];
+    $category = $_POST['category'];
+    $imageName = $_FILES['camera']['name'];
+$tmpName   = $_FILES['camera']['tmp_name'];
+
+$uploadDir = "../uploads/";
+$imagePath = $uploadDir . time() . "_" . $imageName;
+
+// move image to folder
+move_uploaded_file($tmpName, $imagePath);
+
+// store only filename in DB
+$image = time() . "_" . $imageName;
+    $date = $_POST['date'];
     $type = $_POST['type'];
     $location = $_POST['location'];
     $user_id = $_SESSION['user_id'];
+    print($image);
     
 
     $query = "INSERT INTO items 
-  (user_id, title, description, type, location, created_at) 
-  VALUES ('$user_id','$title','$desc','$type','$location', NOW())";
+  (user_id, title, description, category, type, location, image, created_at) 
+  VALUES ('$user_id','$title','$desc','$category','$type','$location', '$image', NOW())";
 
     
 

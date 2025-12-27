@@ -1,4 +1,5 @@
 <?php
+session_start();
 include("../config/db.php");
 
 // check login
@@ -57,6 +58,7 @@ $result = mysqli_query($conn, $query);
         <a href="../dashboard/post-item.php">Found Items</a>
 
         <?php if($isLoggedIn): ?>
+            <a href="../dashboard/messages.php">Messages</a>
             <a href="../auth/logout.php" class="btn logout-btn">Logout</a>
         <?php else: ?>
             <a href="../auth/login.php">Login</a>
@@ -104,10 +106,13 @@ $result = mysqli_query($conn, $query);
 
                 echo '<h3>' . htmlspecialchars($item['title']) . '</h3>';
                 echo '<p>' . htmlspecialchars($item['description']) . '</p>';
+                echo '<span class="posted-at">' . date("d M Y", strtotime($item['created_at'])) . '</span>';
+                echo'<div class="item-meta">';
+                echo '<span class="item-category">' . ucfirst($item['category']) . '</span>';
                 echo '<span class="item-type ' . htmlspecialchars($item['type']) . '">' 
                   . ucfirst($item['type']) . 
                    '</span>';
-                echo '<span class="posted-at">' . date("d M Y", strtotime($item['created_at'])) . '</span>';
+                "</div>";
 
                 echo '</div>';
             }
