@@ -26,29 +26,21 @@ if (isset($_SESSION['user_id']) && isset($_SESSION['role'])) {
 |--------------------------------------------------------------------------
 */
 if (isset($_POST['login'])) {
-
     $email = trim($_POST['email']);
     $password = trim($_POST['password']);
 
-    $stmt = $conn->prepare(
-        "SELECT id, password, role FROM users WHERE email = ? LIMIT 1"
-    );
+    $stmt = $conn->prepare("SELECT id,name, password, role FROM users WHERE email = ? LIMIT 1");
     $stmt->bind_param("s", $email);
     $stmt->execute();
     $result = $stmt->get_result();
 
     if ($result && $result->num_rows === 1) {
-
         $user = $result->fetch_assoc();
-
-        // Verify password
         if (password_verify($password, $user['password'])) {
-
-            // Set session
             $_SESSION['user_id'] = $user['id'];
-            $_SESSION['role']    = strtolower(trim($user['role']));
-
-            // Redirect based on role
+            $_SESSION['user_name'] = $user['name'];
+            $_SESSION['role'] = strtolower(trim($user['role']));
+            
             if ($_SESSION['role'] === 'admin') {
                 header("Location: ../admin/admin-dashboard.php");
             } else {
@@ -58,9 +50,18 @@ if (isset($_POST['login'])) {
         }
     }
 
-    // If login fails
-    $error = "Invalid email or password";
+    // Store error in session and redirect
+    $_SESSION['error'] = "Invalid email or password";
+    header("Location: login.php"); // redirect to same page
+    exit();
 }
+
+// Display error and clear session
+if (isset($_SESSION['error'])) {
+    $error = $_SESSION['error'];
+    unset($_SESSION['error']);
+}
+
 ?>
     
 
@@ -76,6 +77,10 @@ if (isset($_POST['login'])) {
 </head>
 <body>
 <form method="POST" class="login-container">
+    <?php if(isset($error)): ?>
+        <p style="color:red; text-align:center;"><?php echo $error; ?></p>
+    <?php endif; ?>
+    
     <div class="form-group">
         <label>Email</label>
         <input type="email" name="email" required>

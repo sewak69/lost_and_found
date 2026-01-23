@@ -16,8 +16,7 @@ if (isset($_GET['search']) && !empty(trim($_GET['search']))) {
               ORDER BY created_at DESC";
 } else {
     $query = "SELECT * FROM items 
-              ORDER BY created_at DESC 
-              LIMIT 5";
+              ORDER BY created_at DESC";
 }
 
 $result = mysqli_query($conn, $query);
@@ -38,6 +37,9 @@ $result = mysqli_query($conn, $query);
     <div class="logo">
         <a href="../dashboard/index.php">Lost & Found</a>
     </div>
+    
+    
+    <?php echo  isset($_SESSION['user_name']) ? $_SESSION['user_name'] : 'Guest'; ?>
 
     <!-- NAV SEARCH -->
     <form method="GET" action="" class="nav-search">
@@ -58,7 +60,6 @@ $result = mysqli_query($conn, $query);
         <a href="../dashboard/post-item.php">Found Items</a>
 
         <?php if($isLoggedIn): ?>
-            <a href="../dashboard/messages.php">Messages</a>
             <a href="../auth/logout.php" class="btn logout-btn">Logout</a>
         <?php else: ?>
             <a href="../auth/login.php">Login</a>
@@ -73,7 +74,6 @@ $result = mysqli_query($conn, $query);
 <!-- HERO -->
 <section class="hero">
     <h1>Lost Something? Found Something?<br>We're Here to Help</h1>
-
 
     <div class="hero-buttons">
         <?php if($isLoggedIn): ?>
@@ -97,6 +97,7 @@ $result = mysqli_query($conn, $query);
     <div class="items-container">
         <?php
         if(mysqli_num_rows($result) > 0) {
+            echo '<div class="item-card-main">';
             while($item = mysqli_fetch_assoc($result)) {
                 echo '<div class="item-card">';
 
@@ -114,6 +115,7 @@ $result = mysqli_query($conn, $query);
                    '</span>';
                 "</div>";
 
+                echo '</div>';
                 echo '</div>';
             }
         } else {
