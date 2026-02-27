@@ -134,6 +134,19 @@ select:focus {
     text-decoration: underline;
 }
 
+.right-group{
+    display: flex;
+    justify-content: space-between;
+    gap:8px;
+}
+
+.up-group{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap:8px;
+}
+
 /* Responsive */
 @media (max-width: 768px) {
     .container {

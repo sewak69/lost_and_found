@@ -67,6 +67,9 @@ $image = time() . "_" . $imageName;
                     <label for="title">Title</label>
                     <input type="text" id="title" name="title" required>
                 </div>
+           <div class="up-group"> 
+                
+
                 <label>Category</label>
                  <select name="category" required>
                     
@@ -75,19 +78,23 @@ $image = time() . "_" . $imageName;
                  <option value="mobile">Mobile Phone</option>
                  <option value="bag">Bag</option>
                  <option value="keys">Keys</option>
+                 <option value="clothing">Clothing</option>
+                 <option value="electronics">Electronics</option>
                  <option value="documents">Documents</option>
                  <option value="others">Others</option>
                 </select>
 
                 <div class="input-group">
+                    <label for="file image">File Image</label>
+                    <input type="file" id="camera" name="camera" accept="image/*">
+                </div>
+             </div> 
+                <div class="input-group">
                     <label for="description">Description</label>
                     <textarea id="description" name="description" required></textarea>
                 </div>
-                <div class="input-group">
-                    <label for="camera">Camera</label>
-                    <input type="file" id="camera" name="camera" accept="image/*">
-
-                </div>
+                
+             <div class="right-group">
                 <div class="input-group">
                     <label for="date">date</label>
                     <input type="date" id="date" name="date" required>
@@ -101,6 +108,7 @@ $image = time() . "_" . $imageName;
                         <option value="found">Found</option>
                     </select>
                 </div>
+            </div>
 
                 <div class="input-group">
                     <label for="location">Location</label>
